@@ -3,6 +3,7 @@ Project Title
 Data Preprocessing with Pandas: A Hands-On Lab
 
 Short Description
+
 This lab provides a comprehensive guide on using Python's pandas library for preprocessing datasets. It covers essential methods and functions for cleaning and formatting data, ensuring that it is ready for analysis and modeling.
 
 Getting Started
