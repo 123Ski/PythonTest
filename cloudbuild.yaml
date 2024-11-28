@@ -4,6 +4,13 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/flask-app:$COMMIT_SHA', '.']
 
+options:
+  logging: NONE  # Disable logging entirely
+
+build:
+  service_account: '455482298606-compute@developer.gserviceaccount.com'
+
+
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/flask-app:$COMMIT_SHA']
