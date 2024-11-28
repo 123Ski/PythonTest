@@ -1,20 +1,13 @@
-# cloudbuild.yaml
 steps:
-  # Build the container image
+  # Step 1: Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/flask-app:$COMMIT_SHA', '.']
 
-options:
-  logging: NONE  # Disable logging entirely
-
-build:
-  service_account: '455482298606-compute@developer.gserviceaccount.com'
-  
-  # Push the container image to Container Registry
+  # Step 2: Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/flask-app:$COMMIT_SHA']
 
-  # Update the container image in the GCE instance
+  # Step 3: Update the container image in the GCE instance
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'compute'
@@ -25,7 +18,12 @@ build:
       - '--container-image=gcr.io/$PROJECT_ID/flask-app:$COMMIT_SHA'
 
 substitutions:
-  _ZONE: 'us-central1-a'  # default value
+  _ZONE: 'us-central1-a'  # Default zone for the GCE instance
 
 images:
   - 'gcr.io/$PROJECT_ID/flask-app:$COMMIT_SHA'
+
+options:
+  logging: NONE  # Disable logging entirely
+
+service_account: '455482298606-compute@developer.gserviceaccount.com'  # Correct placement
